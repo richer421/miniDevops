@@ -1,0 +1,18 @@
+apiVersion: v2
+appVersion: v1.16.0
+dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.x.x
+description: A Helm chart for karmada-operator
+kubeVersion: '>= 1.16.0-0'
+maintainers:
+- email: wen.chen@daocloud.io
+  name: calvin0327
+- email: chaosi@zju.edu.cn
+  name: chaosi-zju
+- email: amiralavi7@gmail.com
+  name: a7i
+name: karmada-operator
+type: application
+version: v1.16.0
