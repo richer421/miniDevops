@@ -1,0 +1,16 @@
+apiVersion: v2
+appVersion: v1.16.0
+dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 2.x.x
+description: A Helm chart for karmada
+kubeVersion: '>= 1.16.0-0'
+maintainers:
+- email: chaosi@zju.edu.cn
+  name: chaosi-zju
+- email: amiralavi7@gmail.com
+  name: a7i
+name: karmada
+type: application
+version: v1.16.0
