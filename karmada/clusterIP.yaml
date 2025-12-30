@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: karmada-apiserver-clusterip
+  namespace: karmada-system
+  labels:
+    app: karmada-apiserver
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  selector:
+    app: karmada-apiserver
+  ports:
+    - name: karmada-apiserver
+      port: 5443
+      targetPort: 5443
+      protocol: TCP

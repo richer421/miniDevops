@@ -128,17 +128,32 @@ agent:
 
 # 注册 member-1 集群
 helm install karmada-agent karmada-charts/karmada \
-     --namespace karmada-agent-system --create-namespace \
+     --namespace karmada-system --create-namespace \
      --set installMode=agent \
      --set-file agent.kubeconfig.caCrt=$HOME/.kube/karmada-certs/ca.crt \
      --set-file agent.kubeconfig.crt=$HOME/.kube/karmada-certs/client.crt \
      --set-file agent.kubeconfig.key=$HOME/.kube/karmada-certs/client.key \
      --set agent.clusterName=member-1 \
-     --set agent.clusterEndpoint=$(kubectl --context kind-member-1 config view --minify -o jsonpath='{.clusters[0].cluster.server}') \
+     --set agent.clusterEndpoint=https://host.docker.internal:54904 \
      --set agent.kubeconfig.server=https://host.docker.internal:30160 ## 这里比较特殊，容器网络内交互，需要使用docker-desktop的ip地址
 
-# 查看安装状态
+# 查看安装状态ß
 kubectl get pods -n karmada-agent-system
 NAME                             READY   STATUS    RESTARTS   AGE
 karmada-agent-7df888b566-rcg9k   1/1     Running   0          26s
 ```
+
+# 尝试验证
+```bash
+# 切换到控制面集群上下文
+kubectl kc switch
+kubectl apply -f ./karmada/test/deployment.yaml
+kubectl apply -f ./karmada/test/propagationpolicy.yaml
+```
+# 这个时候，查看应该就已经部署到 member-1 集群中了
+# 如果出现问题，一般是文档遗漏了某些步骤，可以参考官方文档进行排查
+
+
+
+# 后续，部署其他 member 集群了
+
